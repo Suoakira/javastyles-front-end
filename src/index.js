@@ -1,3 +1,5 @@
+
+// temporary manual seeding - can't access styles.js from index.js?
 const tops = [
 {
     frontUrl: "https://lp2.hm.com/hmgoepprod?set=source[/43/6a/436a2cbc4f0d0bd0b62091f07c5c98dffc1eb1dc.jpg],origin[dam],category[men_jacketscoats_jackets],type[DESCRIPTIVESTILLLIFE],res[z],hmver[1]&call=url[file:/product/main]",
@@ -13,22 +15,52 @@ const tops = [
 
 }]
 
+const bottoms = [{
+        frontUrl: "https://lp2.hm.com/hmgoepprod?set=source[/b9/e3/b9e3483d4e5037cb3dd97e40feb05a29163e32ad.jpg],origin[dam],category[men_trousers_trousers_slim_all],type[DESCRIPTIVESTILLLIFE],res[z],hmver[1]&call=url[file:/product/main]",
+        backUrl: "placeholder"
+
+    },
+    {
+        frontUrl: "https://lp2.hm.com/hmgoepprod?set=source[/c1/a6/c1a69dc3ac5fd3c3efa89279c179f37710f3f3a4.jpg],origin[dam],category[men_trousers],type[DESCRIPTIVESTILLLIFE],res[z],hmver[1]&call=url[file:/product/main]",
+        backUrl: "placeholder"
+
+    },
+    {
+        frontUrl: "https://lp2.hm.com/hmgoepprod?set=source[/5c/57/5c576a020bf704706a6ebd1aa2a8ceb7fc050536.jpg],origin[dam],category[men_blazerssuits_trousers],type[DESCRIPTIVESTILLLIFE],res[z],hmver[1]&call=url[file:/product/main]",
+        backUrl: "placeholder"
+
+    }
+]
+
+const shoes = [
+{
+    frontUrl: "https://runnerspoint.scene7.com/is/image/rpe/314625664504?$medium$"
+},
+{
+    frontUrl: "https://runnerspoint.scene7.com/is/image/rpe/314625649604?$medium$"
+},
+{
+    frontUrl: "https://runnerspoint.scene7.com/is/image/rpe/314625688404?$medium$"
+}]
 
 
 
 
 
+// main code 
 
-
-const showItem = document.querySelector(".show-page")
+const topEl = document.querySelector("#top")
+const bottomEl = document.querySelector("#bottom")
+const shoesEl = document.querySelector("#shoes")
 const listItem = document.querySelector("#list-items")
 let topCounter = 0
 let bottomCounter = 0
 let shoeCounter = 0
 
 
-// for click of right arrow button
-const goRight = () => {
+
+// for click of right arrow button on tops
+const goRightTops = () => {
     if (topCounter !== tops.length - 1){
         topCounter++
     } else {
@@ -36,8 +68,8 @@ const goRight = () => {
     }
 }
 
-// for click of left arrow button
-const goLeft = () => {
+// for click of left arrow button on tops
+const goLeftTops = () => {
     if (topCounter === 0){
         topCounter = tops.length-1
     } else {
@@ -45,61 +77,128 @@ const goLeft = () => {
     }
 }
 
+// for click of right arrow button on bottoms
+const goRightBottoms = () => {
+    if (bottomCounter !== bottoms.length - 1) {
+        bottomCounter++
+    } else {
+        bottomCounter = 0
+    }
+}
+
+// for click of left arrow button on bottoms
+const goLeftBottoms = () => {
+    if (bottomCounter === 0) {
+        bottomCounter = bottoms.length - 1
+    } else {
+        --bottomCounter
+    }
+}
+
+// for click of right arrow button on shoes
+const goRightShoes = () => {
+    if (shoeCounter !== shoes.length - 1) {
+        shoeCounter++
+    } else {
+        shoeCounter = 0
+    }
+}
+
+// for click of left arrow button on shoes
+const goLeftShoes = () => {
+    if (shoeCounter === 0) {
+        shoeCounter = shoes.length - 1
+    } else {
+        --shoeCounter
+    }
+}
 
 
+
+
+// left button event listener methods for tops, bottoms and shoes
+const leftButtonClick = (leftButton, itemMethod, clothingItemArray, leftMethod) => {
+    return leftButton.addEventListener('click', () => {
+
+        leftMethod()
+        itemMethod(clothingItemArray)
+    })
+}
+
+// right button event listener methods for tops, bottoms and shoes
+const rightButtonClick = (rightButton, itemMethod, clothingItemArray, rightMethod) => {
+    return rightButton.addEventListener('click', () => {
+
+        rightMethod()
+        itemMethod(clothingItemArray)
+    })
+}
+
+
+// render the top list 
 const renderTop = () => {
-    let topDiv = document.createElement("div")
-    topDiv.className = "top-div"
-    topDiv.innerHTML = `
 
+
+    topEl.innerHTML = `
     <img src=${tops[topCounter].frontUrl} />
     <button class="right-top">RIGHT</button>
     <button class="left-top">LEFT</button>
     `
-    showItem.appendChild(topDiv)
-    
-    const rightButton = document.querySelector('.right-top')
-    const leftButton = document.querySelector('.left-top')
 
-    rightButton.addEventListener('click', () => {
-        goRight()
-        showItem.innerHTML = ""
-        renderTop(tops)
-    })
+    console.log("rendering top")
+    const rightButtonTop = document.querySelector('.right-top')
+    const leftButtonTop = document.querySelector('.left-top')
 
-    leftButton.addEventListener('click', () => {
-        goLeft()
-        showItem.innerHTML = ""
-        renderTop(tops)
-    })
+    rightButtonClick(rightButtonTop, renderTop, tops, goRightTops)
+    leftButtonClick(leftButtonTop, renderTop, tops, goLeftTops)
 
 }
 
 renderTop(tops)
 
 
+// render the bottom list 
+const renderBottom = () => {
 
+    bottomEl.innerHTML = `
 
-const renderBottom = (bottom) => {
-    let bottomDiv = document.createElement("div")
-    bottomDiv.className = "bottom-div"
-    bottomDiv.innerHTML = `
-
-        <img src=${bottom.frontUrl1} >
-    
+    <img src=${bottoms[bottomCounter].frontUrl} />
+    <button class="right-bottom">RIGHT</button>
+    <button class="left-bottom">LEFT</button>
     `
-    showItem.appendChild(bottomDiv)
+    console.log("rendering bottom")
+    const rightButtonBottom = document.querySelector('.right-bottom')
+    const leftButtonBottom = document.querySelector('.left-bottom')
+
+    rightButtonClick(rightButtonBottom, renderBottom, bottoms, goRightBottoms)
+    leftButtonClick(leftButtonBottom, renderBottom, bottoms, goLeftBottoms)
+
 
 }
 
-const renderShoe = (shoe) => {
-    let shoeDiv = document.createElement("div")
-    shoeDiv.innerHTML = `
+renderBottom(bottoms)
 
-        <img src=${shoe.shoe1} >
-    
+
+// render the shoes list 
+const renderShoe = () => {
+
+    shoesEl.innerHTML = `
+
+    <img src=${shoes[shoeCounter].frontUrl} />
+    <button class="right-shoe">RIGHT</button>
+    <button class="left-shoe">LEFT</button>
     `
-    showItem.appendChild(shoeDiv)
+    console.log("rendering shoe")
+    const rightButtonShoe = document.querySelector('.right-shoe')
+    const leftButtonShoe = document.querySelector('.left-shoe')
+
+    rightButtonClick(rightButtonShoe, renderShoe, shoes, goRightShoes)
+    leftButtonClick(leftButtonShoe, renderShoe, shoes, goLeftShoes)
+
 
 }
+
+renderShoe(shoes)
+
+
 
