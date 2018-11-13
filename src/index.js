@@ -35,14 +35,16 @@ const bottoms = [{
 const shoes = [
 {
     frontUrl: "https://runnerspoint.scene7.com/is/image/rpe/314625664504?$medium$"
+    // backUrl: "placeholder"
 },
 {
     frontUrl: "https://runnerspoint.scene7.com/is/image/rpe/314625649604?$medium$"
+    // backUrl: "placeholder"
 },
 {
     frontUrl: "https://runnerspoint.scene7.com/is/image/rpe/314625688404?$medium$"
+    // backUrl: "placeholder"
 }]
-
 
 
 
@@ -53,6 +55,7 @@ const topEl = document.querySelector("#top")
 const bottomEl = document.querySelector("#bottom")
 const shoesEl = document.querySelector("#shoes")
 const listItem = document.querySelector("#list-items")
+const submitButton = document.querySelector('#submit-outfit')
 let topCounter = 0
 let bottomCounter = 0
 let shoeCounter = 0
@@ -199,6 +202,22 @@ const renderShoe = () => {
 }
 
 renderShoe(shoes)
+
+
+submitButton.addEventListener('click', ()=>{
+
+    const styleObj = {
+        top_front_url: tops[topCounter].frontUrl,
+        top_back_url: tops[topCounter].backUrl,
+        bottom_front_url: bottoms[bottomCounter].frontUrl,
+        bottom_back_url: bottoms[bottomCounter].backUrl,
+        shoe_url: shoes[shoeCounter].frontUrl,
+        likes: 0
+    }
+
+    newStyle(styleObj)
+
+})
 
 
 
