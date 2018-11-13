@@ -1,5 +1,5 @@
 const newStyle = (newStyleObj) => {
-    return fetch("localhost:3000/api/v1/styles", {
+    return fetch("http://localhost:3000/api/v1/styles", {
         method: "POST",
         headers: {
             "Content-Type":"application/json"
