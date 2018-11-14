@@ -233,7 +233,7 @@ const renderStyleCard = (style) => {
         <img class="list-image" data-id="top${style.id}" src=${style.top_front_url} />
     </div>
     <div class="list-bot-div">
-        <img class="list-image" data-id="bot${style.id}" "src=${style.bottom_front_url} />
+        <img class="list-image" data-id="bot${style.id}" src=${style.bottom_front_url} />
     </div>
     <div class="list-shoe-div">
         <img class="list-image" data-id="shoe${style.id}" src=${style.shoe_url} />
