@@ -46,7 +46,9 @@ const shoes = [
     // backUrl: "placeholder"
 }]
 
-
+state = {
+    arrayOfStyles: []
+}
 
 
 // main code 
@@ -214,10 +216,51 @@ submitButton.addEventListener('click', ()=>{
         shoe_url: shoes[shoeCounter].frontUrl,
         likes: 0
     }
-
     newStyle(styleObj)
+
+    state.arrayOfStyles.push(styleObj)
+    renderStyleCard(styleObj)
+
 
 })
 
+const renderStyleCard = (style) => {
+    let listStyleDiv = document.createElement("div") 
+
+    listStyleDiv.innerHTML = `
+    <div class="list-top-div">
+        <img id="top-change" src=${style.top_front_url}>
+    </div>
+    <div class="list-bot-div">
+        <img id="bottom-change "src=${style.bottom_front_url}>
+    <div>
+    <div class="list-shoe-div">
+        <img id="shoe-change" src=${style.shoe_url}>
+    </div>
+    <button class="likes-button">Like: ${style.likes}</button>
+    `
+    listItem.appendChild(listStyleDiv)
+  
+}
+
+document.addEventListener("click", event => {
+    if (event.target.className = "likes-button") {
+        
+    }
+})
+
+const likes = (style) => {
+    style.likes += 1
+    updateStyle(style)
+}
 
 
+
+const renderAllStyles = (arrayStyles) =>
+    state.arrayOfStyles.forEach(style => renderStyleCard(style));
+
+getAllStyles()
+    .then(resp => {
+        state.arrayOfStyles = [...resp],
+        renderAllStyles(state.arrayOfStyles)
+    })
