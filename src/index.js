@@ -52,7 +52,6 @@ state = {
 
 
 // main code
-
 const topEl = document.querySelector("#top")
 const bottomEl = document.querySelector("#bottom")
 const shoesEl = document.querySelector("#shoes")
@@ -231,13 +230,13 @@ const renderStyleCard = (style) => {
 
     listStyleDiv.innerHTML = `
     <div class="list-top-div">
-        <img id="top-change" src=${style.top_front_url}>
+        <img class="list-image" data-id="top${style.id}" src=${style.top_front_url} />
     </div>
     <div class="list-bot-div">
-        <img id="bottom-change "src=${style.bottom_front_url}>
-    <div>
+        <img class="list-image" data-id="bot${style.id}" "src=${style.bottom_front_url} />
+    </div>
     <div class="list-shoe-div">
-        <img id="shoe-change" src=${style.shoe_url}>
+        <img class="list-image" data-id="shoe${style.id}" src=${style.shoe_url} />
     </div>
     <button data-id=${style.id} class="likes-button">Like: ${style.likes}</button>
     `
@@ -245,15 +244,29 @@ const renderStyleCard = (style) => {
 
 }
 
+const renderMainShowStyleCard = (style) => {
+
+}
+
 document.addEventListener("click", event => {
-    if (event.target.className = "likes-button") {
+    if (event.target.className === "likes-button") {
       const id = event.target.dataset.id
-      const style = state.arrayOfStyles.find(style => style.id == id)
+      const style = state.arrayOfStyles.find(style => style.id === parseInt(id))
       likes(style)
       listItem.innerHTML = ''
       renderAllStyles(state.arrayOfStyles)
     }
+    if (event.target.className === "list-image") {
+        const id = event.target.dataset.id
+        console.log(id)
+    }
+
 })
+
+
+
+
+
 
 const likes = (style) => {
     style.likes += 1
