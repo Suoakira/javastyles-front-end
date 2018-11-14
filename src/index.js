@@ -1,50 +1,4 @@
 
-// temporary manual seeding - can't access styles.js from index.js?
-const tops = [
-{
-    frontUrl: "https://lp2.hm.com/hmgoepprod?set=source[/43/6a/436a2cbc4f0d0bd0b62091f07c5c98dffc1eb1dc.jpg],origin[dam],category[men_jacketscoats_jackets],type[DESCRIPTIVESTILLLIFE],res[z],hmver[1]&call=url[file:/product/main]",
-    backUrl: "placeholder"
-},
-    {
-    frontUrl: "https://lp2.hm.com/hmgoepprod?set=source[/9f/b6/9fb6a93bd313731bd807dfdd5a79d26665b79707.jpg],origin[dam],category[],type[DESCRIPTIVESTILLLIFE],res[z],hmver[1]&call=url[file:/product/main]",
-    backUrl: "placeholder"
-},
-{
-    frontUrl: "https://lp2.hm.com/hmgoepprod?set=source[/52/09/5209c7bf06008391ad811fd088fa548baa658e36.jpg],origin[dam],category[men_tshirtstanks_shortsleeve],type[DESCRIPTIVESTILLLIFE],res[z],hmver[1]&call=url[file:/product/main]",
-    backUrl: "placeholder"
-
-}]
-
-const bottoms = [{
-        frontUrl: "https://lp2.hm.com/hmgoepprod?set=source[/b9/e3/b9e3483d4e5037cb3dd97e40feb05a29163e32ad.jpg],origin[dam],category[men_trousers_trousers_slim_all],type[DESCRIPTIVESTILLLIFE],res[z],hmver[1]&call=url[file:/product/main]",
-        backUrl: "placeholder"
-
-    },
-    {
-        frontUrl: "https://lp2.hm.com/hmgoepprod?set=source[/c1/a6/c1a69dc3ac5fd3c3efa89279c179f37710f3f3a4.jpg],origin[dam],category[men_trousers],type[DESCRIPTIVESTILLLIFE],res[z],hmver[1]&call=url[file:/product/main]",
-        backUrl: "placeholder"
-
-    },
-    {
-        frontUrl: "https://lp2.hm.com/hmgoepprod?set=source[/5c/57/5c576a020bf704706a6ebd1aa2a8ceb7fc050536.jpg],origin[dam],category[men_blazerssuits_trousers],type[DESCRIPTIVESTILLLIFE],res[z],hmver[1]&call=url[file:/product/main]",
-        backUrl: "placeholder"
-
-    }
-]
-
-const shoes = [
-{
-    frontUrl: "https://runnerspoint.scene7.com/is/image/rpe/314625664504?$medium$"
-    // backUrl: "placeholder"
-},
-{
-    frontUrl: "https://runnerspoint.scene7.com/is/image/rpe/314625649604?$medium$"
-    // backUrl: "placeholder"
-},
-{
-    frontUrl: "https://runnerspoint.scene7.com/is/image/rpe/314625688404?$medium$"
-    // backUrl: "placeholder"
-}]
 
 state = {
     arrayOfStyles: []
@@ -142,10 +96,14 @@ const rightButtonClick = (rightButton, itemMethod, clothingItemArray, rightMetho
 
 // render the top list
 const renderTop = () => {
-
-
     topEl.innerHTML = `
-    <img src=${tops[topCounter].frontUrl} />
+    <img src=${tops[topCounter].frontUrl}
+
+    onmouseover = "this.src='${tops[topCounter].backUrl}';"
+    onmouseout = "this.src='${tops[topCounter].frontUrl}';"
+    
+    
+    />
     <button class="right-top">RIGHT</button>
     <button class="left-top">LEFT</button>
     `
@@ -159,15 +117,18 @@ const renderTop = () => {
 
 }
 
-renderTop(tops)
-
-
 // render the bottom list
 const renderBottom = () => {
 
     bottomEl.innerHTML = `
 
-    <img src=${bottoms[bottomCounter].frontUrl} />
+    <img src=${bottoms[bottomCounter].frontUrl}
+
+    onmouseover = "this.src='${bottoms[bottomCounter].backUrl}';"
+    onmouseout = "this.src='${bottoms[bottomCounter].frontUrl}';"
+    
+    />
+
     <button class="right-bottom">RIGHT</button>
     <button class="left-bottom">LEFT</button>
     `
@@ -178,11 +139,7 @@ const renderBottom = () => {
     rightButtonClick(rightButtonBottom, renderBottom, bottoms, goRightBottoms)
     leftButtonClick(leftButtonBottom, renderBottom, bottoms, goLeftBottoms)
 
-
 }
-
-renderBottom(bottoms)
-
 
 // render the shoes list
 const renderShoe = () => {
@@ -200,10 +157,15 @@ const renderShoe = () => {
     rightButtonClick(rightButtonShoe, renderShoe, shoes, goRightShoes)
     leftButtonClick(leftButtonShoe, renderShoe, shoes, goLeftShoes)
 
-
 }
+const renderStyleCreateCard = () => {
+    renderTop(tops)
+    renderBottom(bottoms)
+    renderShoe(shoes)
+}
+renderStyleCreateCard()
 
-renderShoe(shoes)
+
 
 
 submitButton.addEventListener('click', ()=>{
@@ -217,16 +179,17 @@ submitButton.addEventListener('click', ()=>{
         likes: 0
     }
     newStyle(styleObj)
-    .then(resp => {
-      console.log(resp)
-      state.arrayOfStyles.push(resp)
-      renderStyleCard(resp)
+        .then(resp => {
+            console.log(resp)
+            state.arrayOfStyles.push(resp)
+            renderStyleCard(resp)
     })
 
 
-
-
 })
+
+
+
 
 const renderStyleCard = (style) => {
     let listStyleDiv = document.createElement("div")
@@ -234,25 +197,71 @@ const renderStyleCard = (style) => {
 
     listStyleDiv.innerHTML = `
     <div class="list-top-div">
-        <img class="list-image" data-id="${style.id}" src=${style.top_front_url} />
+        <img class="top-image${style.id}" data-id="${style.id}" src=${style.top_front_url}
+
+        onmouseout="this.src='${style.top_front_url}';"
+        onmouseover="this.src='${style.top_back_url}';" 
+         
+        />
+    </div>
+    <div class="list-bot-div">
+        <img class="bot-image${style.id}" data-id="${style.id}" src=${style.bottom_front_url}
+        
+        onmouseout = "this.src='${style.bottom_front_url}';"
+        onmouseover = "this.src='${style.bottom_back_url}';"
+        
+        />
+    </div>
+    <div class="list-shoe-div">
+        <img class="shoe-image${style.id}" data-id="${style.id}" src=${style.shoe_url} />
+    </div>
+    <button data-id=${style.id} class="likes-button">Like: ${style.likes}</button>
+    `
+
+
+    
+    listStyleDiv.setAttribute("data-id", style.id)
+    listItem.appendChild(listStyleDiv)
+}
+
+
+
+
+
+const showPageRender = (style) => {
+    let showDiv = document.createElement('div')
+    showDiv.innerHTML = `
+    <div class="list-top-div">
+        <img class="list-image" data-id="${style.id}" src=${style.top_front_url}
+        
+        onmouseout = "this.src='${style.top_front_url}';"
+        onmouseover = "this.src='${style.top_back_url}';"
+        
+        />
     </div>
     <div class="list-bot-div">
         <img class="list-image" data-id="${style.id}" src=${style.bottom_front_url} />
+
+        onmouseout = "this.src='${style.bottom_front_url}';"
+        onmouseover = "this.src='${style.bottom_back_url}';"
+
     </div>
     <div class="list-shoe-div">
         <img class="list-image" data-id="${style.id}" src=${style.shoe_url} />
     </div>
     <button data-id=${style.id} class="likes-button">Like: ${style.likes}</button>
+
+
     `
-
-    listStyleDiv.setAttribute("data-id", style.id)
-    listItem.appendChild(listStyleDiv)
-
-}
-
-const renderMainShowStyleCard = (style) => {
+    const top = document.querySelector(`dataset.${style.id}`);
+    console.log(top) 
+    const bot = document.querySelector('[data-id]');
+    const shoe = document.querySelector('[data-id]');
+    showPage.appendChild(showDiv)
 
 }
+
+
 
 document.addEventListener("click", event => {
     if (event.target.className === "likes-button") {
@@ -262,46 +271,18 @@ document.addEventListener("click", event => {
       listItem.innerHTML = ''
       renderAllStyles(state.arrayOfStyles)
     }
-    // if (event.target.className === "list-image") {
-    //     const id = event.target.dataset.id
-    //     console.log(id)
-    // }
     else if (event.target.className = "style-card"){
-      const id = event.target.dataset.id
-      const style = state.arrayOfStyles.find(style => style.id === parseInt(id))
-      showPage.innerHTML = ''
-      showPageRender(style)
-    }
+        const id = event.target.dataset.id
+        const style = state.arrayOfStyles.find(style => style.id === parseInt(id))
+        showPage.innerHTML = ''
+        showPageRender(style)
+    }    
 })
-
-const showPageRender = (style) => {
-  let showDiv = document.createElement('div')
-  showDiv.innerHTML = `
-  <div class="list-top-div">
-      <img class="list-image" data-id="${style.id}" src=${style.top_front_url} />
-  </div>
-  <div class="list-bot-div">
-      <img class="list-image" data-id="${style.id}" src=${style.bottom_front_url} />
-  </div>
-  <div class="list-shoe-div">
-      <img class="list-image" data-id="${style.id}" src=${style.shoe_url} />
-  </div>
-  <button data-id=${style.id} class="likes-button">Like: ${style.likes}</button>
-  `
-  showPage.appendChild(showDiv)
-
-}
-
-
-
-
 
 const likes = (style) => {
     style.likes += 1
     updateStyle(style)
 }
-
-
 
 const renderAllStyles = (arrayStyles) =>
     state.arrayOfStyles.forEach(style => renderStyleCard(style));
