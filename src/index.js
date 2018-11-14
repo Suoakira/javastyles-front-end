@@ -51,7 +51,7 @@ state = {
 }
 
 
-// main code 
+// main code
 
 const topEl = document.querySelector("#top")
 const bottomEl = document.querySelector("#bottom")
@@ -69,7 +69,7 @@ const goRightTops = () => {
     if (topCounter !== tops.length - 1){
         topCounter++
     } else {
-        topCounter = 0 
+        topCounter = 0
     }
 }
 
@@ -140,7 +140,7 @@ const rightButtonClick = (rightButton, itemMethod, clothingItemArray, rightMetho
 }
 
 
-// render the top list 
+// render the top list
 const renderTop = () => {
 
 
@@ -162,7 +162,7 @@ const renderTop = () => {
 renderTop(tops)
 
 
-// render the bottom list 
+// render the bottom list
 const renderBottom = () => {
 
     bottomEl.innerHTML = `
@@ -184,7 +184,7 @@ const renderBottom = () => {
 renderBottom(bottoms)
 
 
-// render the shoes list 
+// render the shoes list
 const renderShoe = () => {
 
     shoesEl.innerHTML = `
@@ -217,15 +217,17 @@ submitButton.addEventListener('click', ()=>{
         likes: 0
     }
     newStyle(styleObj)
+    .then(resp => {
+      console.log(resp)
+      state.arrayOfStyles.push(resp)})
 
-    state.arrayOfStyles.push(styleObj)
     renderStyleCard(styleObj)
 
 
 })
 
 const renderStyleCard = (style) => {
-    let listStyleDiv = document.createElement("div") 
+    let listStyleDiv = document.createElement("div")
 
     listStyleDiv.innerHTML = `
     <div class="list-top-div">
@@ -237,15 +239,19 @@ const renderStyleCard = (style) => {
     <div class="list-shoe-div">
         <img id="shoe-change" src=${style.shoe_url}>
     </div>
-    <button class="likes-button">Like: ${style.likes}</button>
+    <button data-id=${style.id} class="likes-button">Like: ${style.likes}</button>
     `
     listItem.appendChild(listStyleDiv)
-  
+
 }
 
 document.addEventListener("click", event => {
     if (event.target.className = "likes-button") {
-        
+      const id = event.target.dataset.id
+      const style = state.arrayOfStyles.find(style => style.id == id)
+      likes(style)
+      listItem.innerHTML = ''
+      renderAllStyles(state.arrayOfStyles)
     }
 })
 
