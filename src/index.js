@@ -57,6 +57,7 @@ const bottomEl = document.querySelector("#bottom")
 const shoesEl = document.querySelector("#shoes")
 const listItem = document.querySelector("#list-items")
 const submitButton = document.querySelector('#submit-outfit')
+const showPage = document.querySelector('.show-page')
 let topCounter = 0
 let bottomCounter = 0
 let shoeCounter = 0
@@ -218,28 +219,33 @@ submitButton.addEventListener('click', ()=>{
     newStyle(styleObj)
     .then(resp => {
       console.log(resp)
-      state.arrayOfStyles.push(resp)})
+      state.arrayOfStyles.push(resp)
+      renderStyleCard(resp)
+    })
 
-    renderStyleCard(styleObj)
+
 
 
 })
 
 const renderStyleCard = (style) => {
     let listStyleDiv = document.createElement("div")
+    listStyleDiv.className = "style-card"
 
     listStyleDiv.innerHTML = `
     <div class="list-top-div">
-        <img class="list-image" data-id="top${style.id}" src=${style.top_front_url} />
+        <img class="list-image" data-id="${style.id}" src=${style.top_front_url} />
     </div>
     <div class="list-bot-div">
-        <img class="list-image" data-id="bot${style.id}" src=${style.bottom_front_url} />
+        <img class="list-image" data-id="${style.id}" src=${style.bottom_front_url} />
     </div>
     <div class="list-shoe-div">
-        <img class="list-image" data-id="shoe${style.id}" src=${style.shoe_url} />
+        <img class="list-image" data-id="${style.id}" src=${style.shoe_url} />
     </div>
     <button data-id=${style.id} class="likes-button">Like: ${style.likes}</button>
     `
+
+    listStyleDiv.setAttribute("data-id", style.id)
     listItem.appendChild(listStyleDiv)
 
 }
@@ -256,13 +262,35 @@ document.addEventListener("click", event => {
       listItem.innerHTML = ''
       renderAllStyles(state.arrayOfStyles)
     }
-    if (event.target.className === "list-image") {
-        const id = event.target.dataset.id
-        console.log(id)
+    // if (event.target.className === "list-image") {
+    //     const id = event.target.dataset.id
+    //     console.log(id)
+    // }
+    else if (event.target.className = "style-card"){
+      const id = event.target.dataset.id
+      const style = state.arrayOfStyles.find(style => style.id === parseInt(id))
+      showPage.innerHTML = ''
+      showPageRender(style)
     }
-
 })
 
+const showPageRender = (style) => {
+  let showDiv = document.createElement('div')
+  showDiv.innerHTML = `
+  <div class="list-top-div">
+      <img class="list-image" data-id="${style.id}" src=${style.top_front_url} />
+  </div>
+  <div class="list-bot-div">
+      <img class="list-image" data-id="${style.id}" src=${style.bottom_front_url} />
+  </div>
+  <div class="list-shoe-div">
+      <img class="list-image" data-id="${style.id}" src=${style.shoe_url} />
+  </div>
+  <button data-id=${style.id} class="likes-button">Like: ${style.likes}</button>
+  `
+  showPage.appendChild(showDiv)
+
+}
 
 
 
