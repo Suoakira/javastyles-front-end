@@ -293,7 +293,6 @@ const showPageRender = (style) => {
             str +=  `<div class="box">
     <article class="media">
         <div class="media-left">
-              <figure class="image is-64x64">
       </figure>
         </div>
         <div class="media-content">
@@ -315,27 +314,6 @@ const showPageRender = (style) => {
             <p>
                 ${comment}
             </p>
-        </div>
-        <nav class="level is-mobile">
-            <div class="level-left">
-            <a class="level-item" aria-label="reply">
-                <span class="icon is-small">
-                <i class="fas fa-reply" aria-hidden="true"></i>
-                </span>
-            </a>
-            <a class="level-item" aria-label="retweet">
-                <span class="icon is-small">
-                <i class="fas fa-retweet" aria-hidden="true"></i>
-                </span>
-            </a>
-            <a class="level-item" aria-label="like">
-                <span class="icon is-small">
-                <i class="fas fa-heart" aria-hidden="true"></i>
-                </span>
-            </a>
-            </div>
-        </nav>
-        </div>
     </article>
     </div>`
         }
@@ -345,26 +323,14 @@ const showPageRender = (style) => {
 
     // added a back to create button on show page, that re-renders the create outfit section
     showDiv.querySelector(".create-but").addEventListener("click", event => {
-    showPage.innerHTML = ` 
-
-        <div id="top">
-
-        </div>
-
-        <div id="bottom">
-
-        </div>
-
-        <div id="shoes">
-
-        </div>
-
-        <button id="submit-outfit">Submit outfit!</button>
-        `
         document.location.reload()
 
     })
     showPage.appendChild(showDiv)
+    // showDiv.classList.add('box')
+    // showDiv.classList.add('media-content')
+    // showDiv.classList.add('')
+
 }
 
 
