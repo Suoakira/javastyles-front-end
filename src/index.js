@@ -158,12 +158,13 @@ const renderShoe = () => {
     leftButtonClick(leftButtonShoe, renderShoe, shoes, goLeftShoes)
 
 }
-const renderStyleCreateCard = () => {
+
+const renderStyleCreateCard = (tops, bottoms, shoes) => {
     renderTop(tops)
     renderBottom(bottoms)
     renderShoe(shoes)
 }
-renderStyleCreateCard()
+renderStyleCreateCard(tops, bottoms, shoes)
 
 
 
@@ -187,8 +188,6 @@ submitButton.addEventListener('click', ()=>{
 
 
 })
-
-
 
 
 const renderStyleCard = (style) => {
@@ -215,13 +214,29 @@ const renderStyleCard = (style) => {
     <div class="list-shoe-div">
         <img class="shoe-image${style.id}" data-id="${style.id}" src=${style.shoe_url} />
     </div>
+
     <button data-id=${style.id} class="likes-button">Like: ${style.likes}</button>
     `
-
+    // renders the show
+    renderTheShowPage()
 
     
     listStyleDiv.setAttribute("data-id", style.id)
     listItem.appendChild(listStyleDiv)
+}
+const renderTheShowPage = () => {
+    const styleCards = document.querySelectorAll(".style-card")
+    styleCards.forEach(stylecard => {
+        return stylecard.addEventListener("click", event => {
+            const id = event.target.dataset.id
+            const style = state.arrayOfStyles.find(style => style.id === parseInt(id))
+            console.log("clicked")
+            showPage.innerHTML = ""
+            showPageRender(style)
+
+        })
+
+    })
 }
 
 
@@ -234,50 +249,53 @@ const showPageRender = (style) => {
     <div class="list-top-div">
         <img class="list-image" data-id="${style.id}" src=${style.top_front_url}
         
-        onmouseout = "this.src='${style.top_front_url}';"
-        onmouseover = "this.src='${style.top_back_url}';"
+        onmouseout="this.src='${style.top_front_url}';"
+        onmouseover="this.src='${style.top_back_url}';"
         
         />
     </div>
     <div class="list-bot-div">
-        <img class="list-image" data-id="${style.id}" src=${style.bottom_front_url} />
+        <img class="list-image" data-id="${style.id}" src=${style.bottom_front_url}
 
-        onmouseout = "this.src='${style.bottom_front_url}';"
-        onmouseover = "this.src='${style.bottom_back_url}';"
-
+        onmouseout="this.src='${style.bottom_front_url}';"
+        onmouseover="this.src='${style.bottom_back_url}';"
+        
+        />
     </div>
     <div class="list-shoe-div">
         <img class="list-image" data-id="${style.id}" src=${style.shoe_url} />
     </div>
+    <button class="create-but">Back to Create</button>
     <button data-id=${style.id} class="likes-button">Like: ${style.likes}</button>
 
-
     `
-    const top = document.querySelector(`dataset.${style.id}`);
-    console.log(top) 
-    const bot = document.querySelector('[data-id]');
-    const shoe = document.querySelector('[data-id]');
+    // added a back to create button on show page, that re-renders the create outfit section
+    // showDiv.querySelector(".create-but").addEventListener("click", event => {
+    // showPage.innerHTML = ""
+    // console.log("worked")
+    // renderTop(tops)
+    // renderBottom(bottoms)
+    // renderShoe(shoes)
+    // })
+
     showPage.appendChild(showDiv)
 
 }
-
 
 
 document.addEventListener("click", event => {
     if (event.target.className === "likes-button") {
       const id = event.target.dataset.id
       const style = state.arrayOfStyles.find(style => style.id === parseInt(id))
+      console.log("if")
       likes(style)
       listItem.innerHTML = ''
       renderAllStyles(state.arrayOfStyles)
     }
-    else if (event.target.className = "style-card"){
-        const id = event.target.dataset.id
-        const style = state.arrayOfStyles.find(style => style.id === parseInt(id))
-        showPage.innerHTML = ''
-        showPageRender(style)
-    }    
 })
+
+
+
 
 const likes = (style) => {
     style.likes += 1
@@ -292,3 +310,6 @@ getAllStyles()
         state.arrayOfStyles = [...resp],
         renderAllStyles(state.arrayOfStyles)
     })
+ 
+
+
