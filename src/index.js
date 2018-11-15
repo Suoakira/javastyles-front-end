@@ -231,51 +231,56 @@ const renderStyleCard = (style) => {
 
 
 const showPageRender = (style) => {
-    showPage.innerHTML = ''
     console.log(style)
-    let showDiv = document.createElement('div')
-    showDiv.className= "show-div"
-    showDiv.innerHTML = `
 
-        <div class="list-top-div">
-            <img class="list-image" data-id="${style.id}" src=${style.top_front_url}
-            
-            onmouseout="this.src='${style.top_front_url}';"
-            onmouseover="this.src='${style.top_back_url}';"
-            
-            />
+
+    showPage.innerHTML = `
+        <div class="show-div">
+                <div class="list-top-div">
+                    <img class="list-image" data-id="${style.id}" src=${style.top_front_url}
+                    
+                    onmouseout="this.src='${style.top_front_url}';"
+                    onmouseover="this.src='${style.top_back_url}';"
+                    
+                    />
+                </div>
+                <div class="list-bot-div">
+                    <img class="list-image" data-id="${style.id}" src=${style.bottom_front_url}
+
+                    onmouseout="this.src='${style.bottom_front_url}';"
+                    onmouseover="this.src='${style.bottom_back_url}';"
+                    
+                    />
+                </div>
+                <div class="list-shoe-div">
+                    <img class="list-image" data-id="${style.id}" src=${style.shoe_url} />
+                </div>
+            </div>
+
+            <div class="button-control">
+                <div>
+                    <button class="create-but">Back to Create</button>
+                    <button data-id=${style.id} class="likes-button">Like: ${style.likes}</button>
+                </div>
+                <div>
+                    <form id="comments-form">
+                        <input type="text" id="submit-text">
+                        <br>
+                        <input type="submit">
+                    </form>  
+                </div> 
+                <div>
+                    <ul id="comments">
+                    </ul>
+                </div>
+
         </div>
-        <div class="list-bot-div">
-            <img class="list-image" data-id="${style.id}" src=${style.bottom_front_url}
-
-            onmouseout="this.src='${style.bottom_front_url}';"
-            onmouseover="this.src='${style.bottom_back_url}';"
-            
-            />
-        </div>
-        <div class="list-shoe-div">
-            <img class="list-image" data-id="${style.id}" src=${style.shoe_url} />
-        </div>
-        <button class="create-but">Back to Create</button>
-        <button data-id=${style.id} class="likes-button">Like: ${style.likes}</button>
-            <form id="comments-form">
-            <input type="text" id="submit-text">
-            <br>
-            <input type="submit">
-        </form>    
-
-
-    <div id="comments">
-
-    </div>
-
-
-
-
 
     `
+
     // add comment form
-    const commentForm = showDiv.querySelector("#comments-form")
+    const showDiv = document.querySelector(".show-div")
+    const commentForm = document.querySelector("#comments-form")
     commentForm.addEventListener("submit", (event)=>{
         event.preventDefault()
         const comment = commentForm.querySelector("#submit-text").value
@@ -285,7 +290,7 @@ const showPageRender = (style) => {
     })
 
     // comments list
-    const commentList = showDiv.querySelector('#comments')
+    const commentList = document.querySelector('#comments')
     let str = ''
 
     style.comments.forEach(comment => {
@@ -322,11 +327,11 @@ const showPageRender = (style) => {
     commentList.innerHTML = str
 
     // added a back to create button on show page, that re-renders the create outfit section
-    showDiv.querySelector(".create-but").addEventListener("click", event => {
+    document.querySelector(".create-but").addEventListener("click", event => {
         document.location.reload()
 
     })
-    showPage.appendChild(showDiv)
+    // showPage.appendChild(showDiv)
     // showDiv.classList.add('box')
     // showDiv.classList.add('media-content')
     // showDiv.classList.add('')
@@ -346,7 +351,6 @@ document.addEventListener("click", event => {
         const id = event.target.dataset.id
         const style = state.arrayOfStyles.find(style => style.id === parseInt(id))
         console.log("clicked")
-        showPage.innerHTML = ""
         showPageRender(style)
     }
 })
