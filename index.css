@@ -28,9 +28,14 @@
     grid-template-columns: 2fr 1fr;
 }
 
-#list-items{
-    background: red
+#list-items {
+    text-align: center;
+    border: solid 2px black;
+    width: 1100px;
+    margin: 50px auto;
+    padding: 20px;
 }
+
 
 .show-div {
    text-align: center;
@@ -50,3 +55,7 @@
   width: auto;
 
 }
+
+
+
+
