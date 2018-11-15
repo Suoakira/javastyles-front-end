@@ -1,52 +1,112 @@
-.style-card{
-    padding-top: 75px
-}
+.style-card {
+     padding-top: 75px
+ }
 
-.button-control {
-    float: right;
-}
+ .button-control {
+     float: right;
+ }
 
-.show-div {
-    float: left;
-}
+ .show-div {
+     float: left;
+ }
 
 
-#container {
-    display: grid;
-    grid-template-columns: 1fr;
-}
+ #container {
+     display: grid;
+     grid-template-columns: 1fr;
+ }
 
-#outfit-card {
+ #outfit-card {
+     width: 600px;
+     margin: 50px auto;
+     padding: 20px;
+ }
+
+ .border {
     border: solid 2px black;
+ }
+
+ .show-page {
+     display: grid;
+     grid-template-columns: 2fr 1fr;
+ }
+
+ #list-items {
+     text-align: center;
+     border: solid 2px black;
+     width: 1100px;
+     margin: 50px auto;
+     padding: 20px;
+ }
+
+
+ .show-div {
+     text-align: center;
+ }
+
+ #java-header {
+     display: flex;
+     justify-content: center;
+     background: #000000;
+     opacity: .8;
+     height: 10rem;
+     padding: 1rem;
+ }
+
+ #java-header img {
+     height: 9rem;
+     width: auto;
+
+ }
+
+ #create-card {
     width: 600px;
     margin: 50px auto;
     padding: 20px;
+    text-align: center;
+ }
+
+ .centered {
+    text-align:center;
+ }
+
+ #comments {
+     padding-right: 50px;
+ }
+
+ .left-right {
+     display: grid;
+     grid-template-columns: 1fr 1fr 1fr;
+ }
+
+ .right-shoe {
+     margin: 0 auto;
+     padding: 100px;
+ }
+
+.left-shoe {
+    margin: 0 auto;
+    padding: 100px;
 }
 
-.show-page {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-}
+ .right-bottom {
+     margin: 0 auto;
+     padding: 120px;
+ }
 
-#list-items{
-    background: red
-}
+ .left-bottom {
+     margin: 0 auto;
+     padding: 120px;
+ }
 
-.show-div {
-   text-align: center;
-}
+  .right-top {
+     margin: 0 auto;
+     padding: 120px;
+ }
 
-#java-header {
-  display: flex;
-  justify-content: center;
-  background: #000000;
-  opacity: .8;
-  height: 10rem;
-  padding: 1rem;
-}
+ .left-top {
+     margin: 0 auto;
+     padding: 120px;
+     
+ }
 
-#java-header img {
-  height: 9rem;
-  width: auto;
-
-}

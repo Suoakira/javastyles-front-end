@@ -12,6 +12,7 @@ const shoesEl = document.querySelector("#shoes")
 const listItem = document.querySelector("#list-items")
 const submitButton = document.querySelector('#submit-outfit')
 const showPage = document.querySelector('.show-page')
+const createCard = document.querySelector('#create-card')
 let topCounter = 0
 let bottomCounter = 0
 let shoeCounter = 0
@@ -99,16 +100,20 @@ let shoeCounter = 0
     // render the top list
     const renderTop = () => {
         topEl.innerHTML = `
-        <img src=${tops[topCounter].frontUrl}
+        <div class="middled">
+            <button class="left-top button is-rounded is-link is-outlined">PREV</button>
+        </div>
 
-        onmouseover = "this.src='${tops[topCounter].backUrl}';"
-        onmouseout = "this.src='${tops[topCounter].frontUrl}';"
-        
-        
-        />
-        <br>
-        <button class="left-top button is-rounded">LEFT</button>
-        <button class="right-top button is-rounded">RIGHT</button>
+        <div>
+            <img src=${tops[topCounter].frontUrl}
+            onmouseover = "this.src='${tops[topCounter].backUrl}';"
+            onmouseout = "this.src='${tops[topCounter].frontUrl}';"   
+            />
+        </div>
+
+        <div>
+            <button class="right-top button is-rounded is-link is-outlined">NEXT</button>
+        </div>
         `
 
         console.log("rendering top")
@@ -117,21 +122,25 @@ let shoeCounter = 0
 
         rightButtonClick(rightButtonTop, renderTop, tops, goRightTops)
         leftButtonClick(leftButtonTop, renderTop, tops, goLeftTops)
-
+        topEl.classList.add('left-right')
     }
 
     // render the bottom list
     const renderBottom = () => {
 
         bottomEl.innerHTML = `
+        <div>
+            <button class="left-bottom button is-rounded is-link is-outlined">PREV</button>
+        </div>
 
-        <img src=${bottoms[bottomCounter].frontUrl}
+        <div><img src=${bottoms[bottomCounter].frontUrl}
         onmouseover = "this.src='${bottoms[bottomCounter].backUrl}';"
         onmouseout = "this.src='${bottoms[bottomCounter].frontUrl}';"  
-        />
-        <br>
-        <button class="left-bottom button is-rounded">LEFT</button>
-        <button class="right-bottom button is-rounded">RIGHT</button>
+        /></div>
+
+        <div>
+            <button class="right-bottom button is-rounded is-link is-outlined">NEXT</button>
+        </div>
         `
         console.log("rendering bottom")
         const rightButtonBottom = document.querySelector('.right-bottom')
@@ -139,6 +148,7 @@ let shoeCounter = 0
 
         rightButtonClick(rightButtonBottom, renderBottom, bottoms, goRightBottoms)
         leftButtonClick(leftButtonBottom, renderBottom, bottoms, goLeftBottoms)
+        bottomEl.classList.add('left-right')
 
     }
 
@@ -146,11 +156,13 @@ let shoeCounter = 0
     const renderShoe = () => {
 
         shoesEl.innerHTML = `
-
-        <img src=${shoes[shoeCounter].frontUrl} />
-        <br>
-        <button class="left-shoe  button is-rounded">LEFT</button>
-        <button class="right-shoe  button is-rounded">RIGHT</button>
+        <div>
+            <button class="left-shoe button is-rounded is-link is-outlined">PREV</button>
+        </div>
+        <div><img src=${shoes[shoeCounter].frontUrl} /></div>
+        <div>
+            <button class="right-shoe button is-rounded is-link is-outlined">NEXT</button>
+        </div>
         `
         console.log("rendering shoe")
         const rightButtonShoe = document.querySelector('.right-shoe')
@@ -158,19 +170,24 @@ let shoeCounter = 0
 
         rightButtonClick(rightButtonShoe, renderShoe, shoes, goRightShoes)
         leftButtonClick(leftButtonShoe, renderShoe, shoes, goLeftShoes)
-
+        shoesEl.classList.add('left-right')
     }
 
-    const renderStyleCreateCard = (tops, bottoms, shoes) => {
+    const renderStyleCreateCard = () => {
         renderTop(tops)
         renderBottom(bottoms)
         renderShoe(shoes)
+        createCard.classList.add('border')
     }
     
 
 
 
+    // cards for rendering individual cards
 
+
+    // create a new local style card and post a style card 
+    // to the api/database on click of the 'submit' button
     submitButton.addEventListener('click', ()=>{
 
         const styleObj = {
@@ -188,12 +205,16 @@ let shoeCounter = 0
                 renderStyleCard(resp)
         })
 
+        submitButton.classList.remove('is-success')
+        submitButton.classList.add('is-warning')
+        submitButton.innerText = `Outfit submitted!`
+        setTimeout(function(){submitButton.classList.add('is-success'), submitButton.classList.remove('is-warning'), submitButton.innerText = `Submit outfit!`}, 1000);
 
     })
 
     renderStyleCreateCard(tops, bottoms, shoes)
 
-
+// render each style card in rows at the bottom of the page, on page load
 const renderStyleCard = (style) => {
     let listStyleDiv = document.createElement("div")
     listStyleDiv.className = "style-card"
@@ -230,9 +251,19 @@ const renderStyleCard = (style) => {
 }
 
 
-const showPageRender = (style) => {
-    console.log(style)
 
+// render a style card to the top of the page
+const showPageRender = (style) => {
+
+    // createCard.classList.remove('border')
+    // createCard.innerHTML = ''
+
+     createCard.innerHTML = `
+     <div class='centered'>
+        <a id="back-to-create" class="button is-large">Create a new style!</a>
+    </div>
+    `
+    showPage.classList.add('border')
 
     showPage.innerHTML = `
         <div class="show-div">
@@ -259,7 +290,6 @@ const showPageRender = (style) => {
 
             <div class="button-control">
                 <div>
-                    <button class="create-but">Back to Create</button>
                     <button data-id=${style.id} class="likes-button">Like: ${style.likes}</button>
                 </div>
                 <div>
@@ -326,15 +356,6 @@ const showPageRender = (style) => {
 
     commentList.innerHTML = str
 
-    // added a back to create button on show page, that re-renders the create outfit section
-    document.querySelector(".create-but").addEventListener("click", event => {
-        document.location.reload()
-
-    })
-    // showPage.appendChild(showDiv)
-    // showDiv.classList.add('box')
-    // showDiv.classList.add('media-content')
-    // showDiv.classList.add('')
 
 }
 
@@ -352,6 +373,8 @@ document.addEventListener("click", event => {
         const style = state.arrayOfStyles.find(style => style.id === parseInt(id))
         console.log("clicked")
         showPageRender(style)
+    } else if (event.target.id === "back-to-create") {
+        document.location.reload()
     }
 })
 
@@ -363,7 +386,7 @@ const likes = (style) => {
     updateStyle(style)
 }
 
-const renderAllStyles = (arrayStyles) =>
+const renderAllStyles = () =>
     state.arrayOfStyles.forEach(style => renderStyleCard(style));
 
 getAllStyles()
