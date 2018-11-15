@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/Suoakira/javastyles-front-end/issues"
   },
-  "homepage": "https://github.com/Suoakira/javastyles-front-end#readme"
+  "homepage": "https://github.com/Suoakira/javastyles-front-end#readme",
+  "dependencies": {
+    "bulma": "^0.7.2"
+  }
 }

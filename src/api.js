@@ -26,3 +26,15 @@ const updateStyle = (style) => {
         })
         .then(response => response.json())
 }
+
+// new comment
+const newComment = (newComment, style) => {
+    return fetch("http://localhost:3000/api/v1/comments", {
+        method: "POST",
+        headers: {
+            "Content-Type":"application/json"
+        },
+        body: JSON.stringify({content: newComment, style_id: style.id})
+    })
+    .then(response => response.json())
+}
