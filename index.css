@@ -24,6 +24,15 @@
 
  .border {
     border: solid 2px black;
+    box-shadow: 10px 10px 2px 1px rgba(74, 2, 243, 0.2);
+ }
+
+ .button-border {
+    box-shadow: 2px 2px 2px 1px rgba(74, 2, 243, 0.2);
+ }
+
+ .submit-border {
+     box-shadow: 2px 2px 2px 1px rgba(74, 2, 243, 0.2);
  }
 
  .show-page {
@@ -33,7 +42,7 @@
 
  #list-items {
      text-align: center;
-     border: solid 2px black;
+     /* border: solid 2px black; */
      width: 1100px;
      margin: 50px auto;
      padding: 20px;
@@ -109,4 +118,23 @@
      padding: 120px;
      
  }
+
+ .list-image {
+     padding: 15px;
+
+ }
+
+ .likes-button {
+     /* padding-top: 15px */
+ }
+
+.style-card:hover {
+     border: solid 0.5px black;
+ }
+
+ .style-card-click{
+    border: solid 2px black;
+    box-shadow: 8px 8px 2px 1px rgba(74, 2, 243, 0.2);
+ }
+
 

@@ -4,6 +4,8 @@ state = {
     arrayOfStyles: []
 }
 
+let currentStyle = ''
+
 
 // main code
 const topEl = document.querySelector("#top")
@@ -101,7 +103,7 @@ let shoeCounter = 0
     const renderTop = () => {
         topEl.innerHTML = `
         <div class="middled">
-            <button class="left-top button is-rounded is-link is-outlined">PREV</button>
+            <button class="left-top button is-rounded is-link is-outlined button-border">PREV</button>
         </div>
 
         <div>
@@ -112,7 +114,7 @@ let shoeCounter = 0
         </div>
 
         <div>
-            <button class="right-top button is-rounded is-link is-outlined">NEXT</button>
+            <button class="right-top button is-rounded is-link is-outlined button-border">NEXT</button>
         </div>
         `
 
@@ -130,7 +132,7 @@ let shoeCounter = 0
 
         bottomEl.innerHTML = `
         <div>
-            <button class="left-bottom button is-rounded is-link is-outlined">PREV</button>
+            <button class="left-bottom button is-rounded is-link is-outlined button-border">PREV</button>
         </div>
 
         <div><img src=${bottoms[bottomCounter].frontUrl}
@@ -139,7 +141,7 @@ let shoeCounter = 0
         /></div>
 
         <div>
-            <button class="right-bottom button is-rounded is-link is-outlined">NEXT</button>
+            <button class="right-bottom button is-rounded is-link is-outlined button-border">NEXT</button>
         </div>
         `
         console.log("rendering bottom")
@@ -157,11 +159,11 @@ let shoeCounter = 0
 
         shoesEl.innerHTML = `
         <div>
-            <button class="left-shoe button is-rounded is-link is-outlined">PREV</button>
+            <button class="left-shoe button is-rounded is-link is-outlined button-border">PREV</button>
         </div>
         <div><img src=${shoes[shoeCounter].frontUrl} /></div>
         <div>
-            <button class="right-shoe button is-rounded is-link is-outlined">NEXT</button>
+            <button class="right-shoe button is-rounded is-link is-outlined button-border">NEXT</button>
         </div>
         `
         console.log("rendering shoe")
@@ -207,7 +209,7 @@ let shoeCounter = 0
 
         submitButton.classList.remove('is-success')
         submitButton.classList.add('is-warning')
-        submitButton.innerText = `Outfit submitted!`
+        submitButton.innerText = `Nice!`
         setTimeout(function(){submitButton.classList.add('is-success'), submitButton.classList.remove('is-warning'), submitButton.innerText = `Submit outfit!`}, 1000);
 
     })
@@ -240,7 +242,7 @@ const renderStyleCard = (style) => {
         <img class="shoe-image${style.id}" data-id="${style.id}" src=${style.shoe_url} />
     </div>
 
-    <button data-id=${style.id} class="likes-button">Like: ${style.likes}</button>
+    <i data-id=${style.id} class="likes-button button is-danger is-outlined">Like: ${style.likes}</i>
     `
     listStyleDiv.classList.add('column')
     listStyleDiv.classList.add('is-one-third')
@@ -254,9 +256,20 @@ const renderStyleCard = (style) => {
 
 // render a style card to the top of the page
 const showPageRender = (style) => {
+    if (!!(currentStyle)){
+        revertPrevStyle()
+    }
 
-    // createCard.classList.remove('border')
-    // createCard.innerHTML = ''
+    currentStyle = document.querySelector(`[data-id="${style.id}"]`)
+    //     if (currentStyle.classList[0] !== 'style-card'){
+    //         currentStyle = currentStyle.parentElement.parentElement
+    //     } 
+
+    changeCurrentStyleStyling()
+    console.log(currentStyle)
+    console.log(style)
+
+
 
      createCard.innerHTML = `
      <div class='centered'>
@@ -361,7 +374,8 @@ const showPageRender = (style) => {
 
 
 document.addEventListener("click", event => {
-    if (event.target.className === "likes-button") {
+    console.log(event.target)
+    if (event.target.classList[0] === "likes-button") {
       const id = event.target.dataset.id
       const style = state.arrayOfStyles.find(style => style.id === parseInt(id))
       console.log("if")
@@ -369,12 +383,19 @@ document.addEventListener("click", event => {
       listItem.innerHTML = ''
       renderAllStyles(state.arrayOfStyles)
     } else if (event.target.parentElement.parentElement.classList[0] === 'style-card') {
+        console.log('nice')
         const id = event.target.dataset.id
         const style = state.arrayOfStyles.find(style => style.id === parseInt(id))
-        console.log("clicked")
+        // console.log(event.target.parentElement.parentElement)
         showPageRender(style)
     } else if (event.target.id === "back-to-create") {
         document.location.reload()
+    } else if (event.target.parentElement.parentElement.classList[2] === 'style-card') {
+        console.log('nice')
+        const id = event.target.dataset.id
+        const style = state.arrayOfStyles.find(style => style.id === parseInt(id))
+        // console.log(event.target.parentElement.parentElement)
+        showPageRender(style)
     }
 })
 
@@ -395,6 +416,19 @@ getAllStyles()
         renderAllStyles(state.arrayOfStyles)
     })
  
+
+const changeCurrentStyleStyling = () => {
+    currentStyle.classList.remove('style-card')
+    currentStyle.classList.add('style-card-click')
+}
+
+const revertPrevStyle = () => {
+    currentStyle.classList.add('style-card')
+    currentStyle.classList.remove('style-card-click')
+}
+
+
+
 
 
 
