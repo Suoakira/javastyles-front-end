@@ -226,6 +226,7 @@ const renderStyleCard = (style) => {
     listStyleDiv.setAttribute("data-id", style.id)
     listItem.appendChild(listStyleDiv)
     listItem.className = 'columns'
+    listItem.classList.add("is-multiline")
 }
 
 
@@ -233,43 +234,46 @@ const showPageRender = (style) => {
     showPage.innerHTML = ''
     console.log(style)
     let showDiv = document.createElement('div')
+    showDiv.className= "show-div"
     showDiv.innerHTML = `
-    <div class="list-top-div">
-        <img class="list-image" data-id="${style.id}" src=${style.top_front_url}
-        
-        onmouseout="this.src='${style.top_front_url}';"
-        onmouseover="this.src='${style.top_back_url}';"
-        
-        />
-    </div>
-    <div class="list-bot-div">
-        <img class="list-image" data-id="${style.id}" src=${style.bottom_front_url}
 
-        onmouseout="this.src='${style.bottom_front_url}';"
-        onmouseover="this.src='${style.bottom_back_url}';"
-        
-        />
-    </div>
-    <div class="list-shoe-div">
-        <img class="list-image" data-id="${style.id}" src=${style.shoe_url} />
-    </div>
-    <button class="create-but">Back to Create</button>
-    <button data-id=${style.id} class="likes-button">Like: ${style.likes}</button>
-        <div>
-            <ul id="comments">
-        
-            </ul>
+        <div class="list-top-div">
+            <img class="list-image" data-id="${style.id}" src=${style.top_front_url}
+            
+            onmouseout="this.src='${style.top_front_url}';"
+            onmouseover="this.src='${style.top_back_url}';"
+            
+            />
         </div>
+        <div class="list-bot-div">
+            <img class="list-image" data-id="${style.id}" src=${style.bottom_front_url}
 
-    <form id="comments-form">
-        <input type="text" id="submit-text">
-        <br>
-        <input type="submit">
-    </form>
+            onmouseout="this.src='${style.bottom_front_url}';"
+            onmouseover="this.src='${style.bottom_back_url}';"
+            
+            />
+        </div>
+        <div class="list-shoe-div">
+            <img class="list-image" data-id="${style.id}" src=${style.shoe_url} />
+        </div>
+        <button class="create-but">Back to Create</button>
+        <button data-id=${style.id} class="likes-button">Like: ${style.likes}</button>
+            <form id="comments-form">
+            <input type="text" id="submit-text">
+            <br>
+            <input type="submit">
+        </form>    
+
+
+    <div id="comments">
+
+    </div>
+
+
+
+
 
     `
-
-
     // add comment form
     const commentForm = showDiv.querySelector("#comments-form")
     commentForm.addEventListener("submit", (event)=>{
@@ -280,26 +284,64 @@ const showPageRender = (style) => {
         showPageRender(style)
     })
 
-
-
-
-
-
     // comments list
     const commentList = showDiv.querySelector('#comments')
     let str = ''
-    
+
     style.comments.forEach(comment => {
         if (!!comment.content){
-            str += `<li>${comment.content}</li>`
+            str +=  `<div class="box">
+    <article class="media">
+        <div class="media-left">
+              <figure class="image is-64x64">
+      </figure>
+        </div>
+        <div class="media-content">
+        <div class="content">
+            <p>
+    
+                ${comment.content}
+            </p>
+
+    </article>
+    </div>`
         } else {
-            str += `<li>${comment}</li>`
+            str += `<div class="box">
+    <article class="media">
+        <div class="media-left">
+        </div>
+        <div class="media-content">
+        <div class="content">
+            <p>
+                ${comment}
+            </p>
+        </div>
+        <nav class="level is-mobile">
+            <div class="level-left">
+            <a class="level-item" aria-label="reply">
+                <span class="icon is-small">
+                <i class="fas fa-reply" aria-hidden="true"></i>
+                </span>
+            </a>
+            <a class="level-item" aria-label="retweet">
+                <span class="icon is-small">
+                <i class="fas fa-retweet" aria-hidden="true"></i>
+                </span>
+            </a>
+            <a class="level-item" aria-label="like">
+                <span class="icon is-small">
+                <i class="fas fa-heart" aria-hidden="true"></i>
+                </span>
+            </a>
+            </div>
+        </nav>
+        </div>
+    </article>
+    </div>`
         }
     })
 
     commentList.innerHTML = str
-
-
 
     // added a back to create button on show page, that re-renders the create outfit section
     showDiv.querySelector(".create-but").addEventListener("click", event => {
@@ -322,9 +364,7 @@ const showPageRender = (style) => {
         document.location.reload()
 
     })
-
     showPage.appendChild(showDiv)
-
 }
 
 
