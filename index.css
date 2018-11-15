@@ -2,11 +2,36 @@
     padding-top: 75px
 }
 
-.comments-right{
-    float:right;
+.button-control {
+    float: right;
 }
 
-.left-style-content{
-    float:left;
+.show-div {
+    float: left;
 }
 
+#container {
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+#outfit-card {
+    border: solid 2px black;
+    width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+}
+
+.show-page {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+}
+
+#list-items{
+    background: red
+}
+
+.show-div {
+   text-align: center;
+
+}
