@@ -132,9 +132,13 @@
      border: solid 0.5px black;
  }
 
- .style-card-click{
+ .style-card-click {
     border: solid 2px black;
     box-shadow: 8px 8px 2px 1px rgba(74, 2, 243, 0.2);
  }
+
+.selected-button {
+    box-shadow: 8px 8px 2px 1px rgba(50, 243, 2, 0.2);
+}
 
 

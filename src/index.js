@@ -15,6 +15,10 @@ const listItem = document.querySelector("#list-items")
 const submitButton = document.querySelector('#submit-outfit')
 const showPage = document.querySelector('.show-page')
 const createCard = document.querySelector('#create-card')
+
+const likesSortButton = document.querySelector('.sort-by-likes')
+const priceSortButton = document.querySelector('.sort-by-price')
+
 let topCounter = 0
 let bottomCounter = 0
 let shoeCounter = 0
@@ -400,8 +404,6 @@ document.addEventListener("click", event => {
 })
 
 
-
-
 const likes = (style) => {
     style.likes += 1
     updateStyle(style)
@@ -429,8 +431,38 @@ const revertPrevStyle = () => {
 
 
 
+// sorting functions/event listeners
+
+let selectedButton = ''
+
+likesSortButton.addEventListener("click", (event)=>{
+    if(!!(selectedButton)){
+        removeButtonColour()
+    }
+    selectedButton = event.target
+    addButtonColour()
+    // sort local array of styles by likes and render this sorted array onto page
+    state.arrayOfStyles.sort()
+})
+
+priceSortButton.addEventListener("click", (event)=>{
+     if(!!(selectedButton)){
+        removeButtonColour()
+    }
+    selectedButton = event.target
+    addButtonColour()
+    // sort local array of styles by price and render this sorted array onto page
+    state.arrayOfStyles.sort()
+})
 
 
+// adds button colour to selected sort button, price or likes
+const addButtonColour = () => {
+    selectedButton.classList.add('selected-button')
+}
 
-
+// removes button colour from button when other button has been selected
+const removeButtonColour = () => {
+    selectedButton.classList.remove('selected-button')
+}
 
