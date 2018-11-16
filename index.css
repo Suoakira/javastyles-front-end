@@ -18,7 +18,7 @@
 
  #outfit-card {
      width: 600px;
-     margin: 50px auto;
+     margin: 60px auto;
      padding: 20px;
  }
 
@@ -29,6 +29,7 @@
 
  .button-border {
     box-shadow: 2px 2px 2px 1px rgba(74, 2, 243, 0.2);
+    color: #cccccc;
  }
 
  .submit-border {
@@ -37,7 +38,7 @@
 
  .show-page {
      display: grid;
-     grid-template-columns: 2fr 1fr;
+     grid-template-columns: 6fr 4fr;
  }
 
  #list-items {
@@ -80,7 +81,10 @@
  }
 
  #comments {
-     padding-right: 50px;
+     padding-right: 20px;
+     padding-left: 2px;
+     text-align: center;
+
  }
 
  .left-right {
@@ -120,7 +124,10 @@
  }
 
  .list-image {
-     padding: 15px;
+     /* padding: 15px; */
+     /* padding-top: 50px; */
+     margin-top: 23px;
+     border-radius: 20px;
 
  }
 
@@ -141,4 +148,45 @@
     box-shadow: 8px 8px 2px 1px rgba(50, 243, 2, 0.2);
 }
 
+.med-font {
+    font-size: 20pt
+    
+}
 
+.red {
+    color: red;
+}
+
+.likes-area {
+    padding-top: 30px;
+    text-align: center;
+}
+
+#submit-text{
+    width: 200px;
+    height: 30px;
+}
+
+.comments-d {
+    padding-top: 17px;
+    padding-bottom: 2px;
+     height: 900px;
+     overflow: scroll;
+}
+
+.please {
+    padding-bottom: 10px;
+    padding-top: 20px;
+}
+
+.rounded{
+    border-radius: 20px;
+}
+
+.button-selection {
+    text-align: center;
+}
+
+.button-s {
+    width: 200px;
+}

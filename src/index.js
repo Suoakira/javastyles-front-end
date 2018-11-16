@@ -1,13 +1,8 @@
-
-
+// setting variables/state 
 state = {
     arrayOfStyles: []
 }
 
-let currentStyle = ''
-
-
-// main code
 const topEl = document.querySelector("#top")
 const bottomEl = document.querySelector("#bottom")
 const shoesEl = document.querySelector("#shoes")
@@ -15,18 +10,17 @@ const listItem = document.querySelector("#list-items")
 const submitButton = document.querySelector('#submit-outfit')
 const showPage = document.querySelector('.show-page')
 const createCard = document.querySelector('#create-card')
-
 const likesSortButton = document.querySelector('.sort-by-likes')
 const priceSortButton = document.querySelector('.sort-by-price')
 
 let topCounter = 0
 let bottomCounter = 0
 let shoeCounter = 0
+let currentStyle = ''
 
 
 
 // for click of right arrow button on tops
-
 
     const goRightTops = () => {
         if (topCounter !== tops.length - 1){
@@ -111,7 +105,7 @@ let shoeCounter = 0
         </div>
 
         <div>
-            <img src=${tops[topCounter].frontUrl}
+            <img class="rounded" src=${tops[topCounter].frontUrl}
             onmouseover = "this.src='${tops[topCounter].backUrl}';"
             onmouseout = "this.src='${tops[topCounter].frontUrl}';"   
             />
@@ -139,7 +133,7 @@ let shoeCounter = 0
             <button class="left-bottom button is-rounded is-link is-outlined button-border">PREV</button>
         </div>
 
-        <div><img src=${bottoms[bottomCounter].frontUrl}
+        <div><img class="rounded" src=${bottoms[bottomCounter].frontUrl}
         onmouseover = "this.src='${bottoms[bottomCounter].backUrl}';"
         onmouseout = "this.src='${bottoms[bottomCounter].frontUrl}';"  
         /></div>
@@ -165,7 +159,7 @@ let shoeCounter = 0
         <div>
             <button class="left-shoe button is-rounded is-link is-outlined button-border">PREV</button>
         </div>
-        <div><img src=${shoes[shoeCounter].frontUrl} /></div>
+        <div class="rounded"><img class="rounded" src=${shoes[shoeCounter].frontUrl} /></div>
         <div>
             <button class="right-shoe button is-rounded is-link is-outlined button-border">NEXT</button>
         </div>
@@ -186,10 +180,6 @@ let shoeCounter = 0
         createCard.classList.add('border')
     }
     
-
-
-
-    // cards for rendering individual cards
 
 
     // create a new local style card and post a style card 
@@ -220,6 +210,8 @@ let shoeCounter = 0
 
     renderStyleCreateCard(tops, bottoms, shoes)
 
+
+
 // render each style card in rows at the bottom of the page, on page load
 const renderStyleCard = (style) => {
     let listStyleDiv = document.createElement("div")
@@ -227,7 +219,7 @@ const renderStyleCard = (style) => {
 
     listStyleDiv.innerHTML = `
     <div class="list-top-div">
-        <img class="top-image${style.id}" data-id="${style.id}" src=${style.top_front_url}
+        <img class="top-image${style.id} rounded" data-id="${style.id}" src=${style.top_front_url}
 
         onmouseout="this.src='${style.top_front_url}';"
         onmouseover="this.src='${style.top_back_url}';" 
@@ -235,7 +227,7 @@ const renderStyleCard = (style) => {
         />
     </div>
     <div class="list-bot-div">
-        <img class="bot-image${style.id}" data-id="${style.id}" src=${style.bottom_front_url}
+        <img class="bot-image${style.id} rounded" data-id="${style.id}" src=${style.bottom_front_url}
         
         onmouseout = "this.src='${style.bottom_front_url}';"
         onmouseover = "this.src='${style.bottom_back_url}';"
@@ -243,11 +235,14 @@ const renderStyleCard = (style) => {
         />
     </div>
     <div class="list-shoe-div">
-        <img class="shoe-image${style.id}" data-id="${style.id}" src=${style.shoe_url} />
+        <img class="shoe-image${style.id} rounded" data-id="${style.id}" src=${style.shoe_url} />
     </div>
-
-    <i data-id=${style.id} class="likes-button button is-danger is-outlined">Like: ${style.likes}</i>
-    `
+    <div>
+        <i data-id=${style.id} class="likes-button far fa-heart fa-2x"></i>
+        <i class="med-font">&nbsp;${style.likes}</i>
+    </div>
+`
+    
     listStyleDiv.classList.add('column')
     listStyleDiv.classList.add('is-one-third')
     listStyleDiv.setAttribute("data-id", style.id)
@@ -270,16 +265,16 @@ const showPageRender = (style) => {
     //     } 
 
     changeCurrentStyleStyling()
-    console.log(currentStyle)
-    console.log(style)
+    // console.log(currentStyle)
+    // console.log(style)
 
 
-
-     createCard.innerHTML = `
-     <div class='centered'>
-        <a id="back-to-create" class="button is-large">Create a new style!</a>
-    </div>
+    // remove annoying border at top of page
+    createCard.id = ''
+    createCard.innerHTML = `
     `
+
+
     showPage.classList.add('border')
 
     showPage.innerHTML = `
@@ -306,17 +301,17 @@ const showPageRender = (style) => {
             </div>
 
             <div class="button-control">
-                <div>
-                    <button data-id=${style.id} class="likes-button">Like: ${style.likes}</button>
+                <div class="likes-area">
+                    <i data-id=${style.id} class="like-button far fa-heart fa-2x"></i>
+                    <i class="med-font">&nbsp;${style.likes}</i>
                 </div>
                 <div>
-                    <form id="comments-form">
+                <div class="please">Please leave a comment:</div>
+                    <form id="comments-form" class ="">
                         <input type="text" id="submit-text">
-                        <br>
-                        <input type="submit">
                     </form>  
                 </div> 
-                <div>
+                <div class="comments-d">
                     <ul id="comments">
                     </ul>
                 </div>
@@ -349,10 +344,10 @@ const showPageRender = (style) => {
         </div>
         <div class="media-content">
         <div class="content">
-            <p>
+        
     
                 ${comment.content}
-            </p>
+            
 
     </article>
     </div>`
@@ -363,9 +358,9 @@ const showPageRender = (style) => {
         </div>
         <div class="media-content">
         <div class="content">
-            <p>
+            
                 ${comment}
-            </p>
+            
     </article>
     </div>`
         }
@@ -374,23 +369,44 @@ const showPageRender = (style) => {
     commentList.innerHTML = str
 
 
+    // button for liking card on its show page 
+    // document.querySelector('#like-button').addEventListener('click', (event) => {
+    //     console.log('LIKE BUTTON CLICKED')
+    //     const id = event.target.dataset.id
+    //     const style = state.arrayOfStyles.find(style => style.id === parseInt(id))
+    //     // likes(style)
+    //     likeToggle(style)
+    //     createCard.innerHTML = ''
+    //     showPageRender(style)
+    // })
+
 }
 
 
+
+// click events -- likes, going back to create, etc.
 document.addEventListener("click", event => {
-    console.log(event.target)
-    if (event.target.classList[0] === "likes-button") {
+    // console.log(event.target)
+    if (event.target.classList[event.target.classList.length-2] === "likes-button") {
       const id = event.target.dataset.id
       const style = state.arrayOfStyles.find(style => style.id === parseInt(id))
-      console.log("if")
-      likes(style)
+      likeToggle(style)
       listItem.innerHTML = ''
       renderAllStyles(state.arrayOfStyles)
+      buttonToggle(style, event.target)
+    } else if (event.target.classList[event.target.classList.length-2] === "like-button") {
+      const id = event.target.dataset.id
+      const style = state.arrayOfStyles.find(style => style.id === parseInt(id))
+      likeToggle(style)
+      showPage.innerHTML = ''
+      showPageRender(style)
+      listItem.innerHTML = ''
+      renderAllStyles(state.arrayOfStyles)
+      buttonToggle(style, event.target)
     } else if (event.target.parentElement.parentElement.classList[0] === 'style-card') {
         console.log('nice')
         const id = event.target.dataset.id
         const style = state.arrayOfStyles.find(style => style.id === parseInt(id))
-        // console.log(event.target.parentElement.parentElement)
         showPageRender(style)
     } else if (event.target.id === "back-to-create") {
         document.location.reload()
@@ -398,16 +414,50 @@ document.addEventListener("click", event => {
         console.log('nice')
         const id = event.target.dataset.id
         const style = state.arrayOfStyles.find(style => style.id === parseInt(id))
-        // console.log(event.target.parentElement.parentElement)
+
         showPageRender(style)
     }
 })
 
 
+
+
+const likeToggle = (style) => {
+    if (style.liked === false || !(style.liked)){
+        style.liked = true;
+        likes(style)
+    } else if (style.liked === true){
+        style.liked = false;
+        unLike(style)
+    }
+}
+
+const buttonToggle = (style, likeButton) => {
+    if (style.liked === false || !(style.liked)) {
+        // heart unfills
+        likeButton.parentElement.classList.add('red')
+        console.log(likeButton.parentElement)
+    } else if (style.liked === true) {
+        // heart fills
+        likeButton.classList.remove('red')
+    }
+}
+
+
+// methods for patching/posting/getting from the api & api methods
 const likes = (style) => {
     style.likes += 1
     updateStyle(style)
 }
+
+const unLike = (style) => {
+    style.likes -= 1
+    updateStyle(style)
+}
+
+
+
+
 
 const renderAllStyles = () =>
     state.arrayOfStyles.forEach(style => renderStyleCard(style));
@@ -432,7 +482,6 @@ const revertPrevStyle = () => {
 
 
 // sorting functions/event listeners
-
 let selectedButton = ''
 
 likesSortButton.addEventListener("click", (event)=>{
@@ -442,7 +491,11 @@ likesSortButton.addEventListener("click", (event)=>{
     selectedButton = event.target
     addButtonColour()
     // sort local array of styles by likes and render this sorted array onto page
-    state.arrayOfStyles.sort()
+     const sortedState = state.arrayOfStyles.sort(function (a, b) {
+         return b.likes - a.likes
+     })
+     listItem.innerHTML = ''
+     renderAllStyles(sortedState.arrayOfStyles)
 })
 
 priceSortButton.addEventListener("click", (event)=>{
@@ -453,11 +506,13 @@ priceSortButton.addEventListener("click", (event)=>{
     addButtonColour()
     // sort local array of styles by price and render this sorted array onto page
     state.arrayOfStyles.sort()
+    
 })
 
 
 // adds button colour to selected sort button, price or likes
 const addButtonColour = () => {
+    !!(selectedButton)
     selectedButton.classList.add('selected-button')
 }
 
@@ -465,4 +520,6 @@ const addButtonColour = () => {
 const removeButtonColour = () => {
     selectedButton.classList.remove('selected-button')
 }
+
+
 
